@@ -1,12 +1,12 @@
-package com.sjhy.plugin;
+package com.anyilanxin.plugin.easycode;
 
+import com.anyilanxin.plugin.easycode.dict.GlobalDict;
+import com.anyilanxin.plugin.easycode.dto.SettingsStorageDTO;
+import com.anyilanxin.plugin.easycode.entity.*;
+import com.anyilanxin.plugin.easycode.tool.JSON;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.intellij.openapi.util.io.FileUtil;
 import com.intellij.openapi.util.io.FileUtilRt;
-import com.sjhy.plugin.dict.GlobalDict;
-import com.sjhy.plugin.dto.SettingsStorageDTO;
-import com.sjhy.plugin.entity.*;
-import com.sjhy.plugin.tool.JSON;
 import org.junit.Test;
 
 import java.io.File;

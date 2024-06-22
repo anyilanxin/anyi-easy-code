@@ -1,4 +1,4 @@
-package com.sjhy.plugin;
+package com.anyilanxin.plugin.easycode;
 
 import org.junit.Test;
 

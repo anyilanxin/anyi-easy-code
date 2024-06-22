@@ -1,6 +1,6 @@
-package com.sjhy.plugin.tool;
+package com.anyilanxin.plugin.easycode.tool;
 
-import com.sjhy.plugin.entity.TableInfo;
+import com.anyilanxin.plugin.easycode.entity.TableInfo;
 import org.junit.Test;
 
 import static org.junit.Assert.assertEquals;

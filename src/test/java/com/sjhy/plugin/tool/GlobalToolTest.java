@@ -1,4 +1,4 @@
-package com.sjhy.plugin.tool;
+package com.anyilanxin.plugin.easycode.tool;
 
 import org.junit.Assert;
 import org.junit.Test;

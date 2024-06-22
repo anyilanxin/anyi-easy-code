@@ -3,9 +3,9 @@
 #* @vtlvariable name="encode" type="java.lang.String" *#
 #* @vtlvariable name="modulePath" type="java.lang.String" *#
 #* @vtlvariable name="importList" type="java.util.List<java.lang.String>" *#
-#* @vtlvariable name="callback" type="com.sjhy.plugin.entity.Callback" *#
-#* @vtlvariable name="tool" type="com.sjhy.plugin.tool.GlobalTool" *#
-#* @vtlvariable name="time" type="com.sjhy.plugin.tool.TimeUtils" *#
-#* @vtlvariable name="tableInfo" type="com.sjhy.plugin.entity.TableInfo" *#
-#* @vtlvariable name="tableInfoList" type="java.util.List<com.sjhy.plugin.entity.TableInfo>" *#
-#* @vtlvariable name="generateService" type="com.sjhy.plugin.tool.ExtraCodeGenerateUtils" *#
+#* @vtlvariable name="callback" type="com.anyilanxin.plugin.easycode.entity.Callback" *#
+#* @vtlvariable name="tool" type="com.anyilanxin.plugin.easycode.tool.GlobalTool" *#
+#* @vtlvariable name="time" type="com.anyilanxin.plugin.easycode.tool.TimeUtils" *#
+#* @vtlvariable name="tableInfo" type="com.anyilanxin.plugin.easycode.entity.TableInfo" *#
+#* @vtlvariable name="tableInfoList" type="java.util.List<com.anyilanxin.plugin.easycode.entity.TableInfo>" *#
+#* @vtlvariable name="generateService" type="com.anyilanxin.plugin.easycode.tool.ExtraCodeGenerateUtils" *#

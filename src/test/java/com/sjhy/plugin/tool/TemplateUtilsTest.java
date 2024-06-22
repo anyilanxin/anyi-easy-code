@@ -1,12 +1,10 @@
-package com.sjhy.plugin.tool;
+package com.anyilanxin.plugin.easycode.tool;
 
-import com.sjhy.plugin.entity.GlobalConfig;
+import com.anyilanxin.plugin.easycode.entity.GlobalConfig;
 import org.junit.Assert;
 import org.junit.Test;
 
 import java.util.Collections;
-
-import static org.junit.Assert.*;
 
 /**
  * 模板工具测试用例
