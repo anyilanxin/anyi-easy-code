@@ -5,7 +5,7 @@ CHANGE LOG
 
 ### FEATURES
 
-1. 更改报名为com.anyilanxin.plugin
+1. 包名由com.sjhy.plugin改为com.anyilanxin.plugin
 2. 代码生成弹框添加作者、版本号、全局配置选择
 3. 升级intellij相关插件以及处理一些过期代码
 4. 添加插件logo
