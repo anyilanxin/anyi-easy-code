@@ -25,11 +25,15 @@
 
 
     <change-notes><![CDATA[
-      <p>1.0.0</p>
+      <p>v1.0.0</p>
       <ul>
-        <li>1.添加版本号支持</li>
-        <li>2.添加选择配置组支持</li>
+        <li>1. 更改报名为com.anyilanxin.plugin</li>
+        <li>2. 代码生成弹框添加作者、版本号、全局配置选择</li>
+        <li>3. 升级intellij相关插件以及处理一些过期代码</li>
+        <li>4. 添加插件logo</li>
+        <li>5. 处理gradle配置以及升级gradle</li>
       </ul>
+      <p>鸣谢 <a href="https://github.com/makejavas/EasyCode">makejava提供初始代码</a>.</p>
       <p>More <a href="https://github.com/anyilanxin/anyi-easy-code">Help Info</a>.</p>
     ]]></change-notes>
 
