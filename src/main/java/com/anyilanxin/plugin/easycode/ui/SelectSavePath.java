@@ -168,7 +168,7 @@ public class SelectSavePath extends DialogWrapper {
             // 存在源代码文件夹放前面，否则放后面
             String name = module.getName();
             // 针对gradle项目过滤掉test
-            if (gradle && (name.endsWith(".test") || name.endsWith(".main"))) {
+            if (gradle && (name.endsWith(".test") || name.endsWith(".main") || name.endsWith(".build"))) {
                 continue;
             }
             if (ModuleUtils.existsSourcePath(module)) {
