@@ -34,7 +34,7 @@ public class ColumnInfoDTO {
     public ColumnInfoDTO(DasColumn column) {
         this.name = NameUtils.getInstance().getJavaName(column.getName());
         this.comment = column.getComment();
-        this.type = getJavaType(column.getDasType().toString());
+        this.type = getJavaType(column.getDasType().toDataType().toString());
         this.custom = false;
         this.ext = "{}";
     }

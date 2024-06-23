@@ -84,7 +84,7 @@ public class MainAction extends AnAction {
 
         FLAG:
         for (DasColumn column : columns) {
-            String typeName = column.getDasType().getSpecification();
+            String typeName = column.getDasType().toDataType().getSpecification();
             for (TypeMapper typeMapper : typeMapperList) {
                 try {
                     if (typeMapper.getMatchType() == MatchType.ORDINARY) {

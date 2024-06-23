@@ -15,11 +15,11 @@ public interface GlobalDict {
     /**
      * 版本号
      */
-    String VERSION = "1.2.8";
+    String VERSION = "1.0.0";
     /**
      * 作者名称
      */
-    String AUTHOR = "makejava";
+    String AUTHOR = "anyilanxin";
     /**
      * 默认分组名称
      */

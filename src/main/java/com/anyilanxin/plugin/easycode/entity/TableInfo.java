@@ -69,6 +69,7 @@ public class TableInfo {
      * 所有列
      */
     private List<ColumnInfo> fullColumn;
+
     /**
      * 主键列
      */

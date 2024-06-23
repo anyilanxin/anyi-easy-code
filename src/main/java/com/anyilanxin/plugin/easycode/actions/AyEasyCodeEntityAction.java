@@ -47,16 +47,14 @@ public class AyEasyCodeEntityAction extends AnAction {
                 .filter(f -> f instanceof PsiJavaFile)
                 .map(f -> (PsiJavaFile) f)
                 .collect(Collectors.toList());
-        if (psiJavaFiles.size() == 0) {
+        if (psiJavaFiles.isEmpty()) {
             return;
         }
-
         // 获取选中的类
         List<PsiClass> psiClassList = resolvePsiClassByFile(psiJavaFiles);
-        if (psiClassList.size() == 0) {
+        if (psiClassList.isEmpty()) {
             return;
         }
-
         // 缓存选中值
         cacheDataUtils.setSelectPsiClass(psiClassList.get(0));
         cacheDataUtils.setPsiClassList(psiClassList);

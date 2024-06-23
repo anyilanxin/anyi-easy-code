@@ -19,9 +19,10 @@ import java.util.stream.Collectors;
  */
 public class ConfigTableModel extends DefaultTableModel implements EditableModel {
 
-    private TableInfo tableInfo;
+    private final TableInfo tableInfo;
 
     public ConfigTableModel(TableInfo tableInfo) {
+        System.out.println("--tableInfo---" + tableInfo);
         this.tableInfo = tableInfo;
         this.initColumn();
         this.initTableData();
