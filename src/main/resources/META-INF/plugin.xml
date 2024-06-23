@@ -33,6 +33,7 @@
         <li>4. 添加插件logo</li>
         <li>5. 处理gradle配置以及升级gradle</li>
         <li>6. 优化gradle项目module选择框显示</li>
+        <li>7. 添加重置、保存设置按钮</li>
       </ul>
       <p>鸣谢 <a href="https://github.com/makejavas/EasyCode">makejava提供初始代码</a>.</p>
       <p>More <a href="https://github.com/anyilanxin/anyi-easy-code">Help Info</a>.</p>

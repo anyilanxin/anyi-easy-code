@@ -104,6 +104,8 @@ public class SelectSavePath extends DialogWrapper {
      * 全局配置
      */
     private JComboBox<String> selectGroupConfig;
+    private JButton saveButton;
+    private JButton resetButton;
     /**
      * 所有包名称映射
      */
@@ -198,7 +200,10 @@ public class SelectSavePath extends DialogWrapper {
             // 刷新路径
             refreshPath();
         });
-
+        saveButton.addActionListener(e -> {
+            onOK(true);
+            close(CANCEL_EXIT_CODE);
+        });
         try {
             Class<?> cls = Class.forName("com.intellij.ide.util.PackageChooserDialog");
             //添加包选择事件
@@ -314,7 +319,7 @@ public class SelectSavePath extends DialogWrapper {
 
     @Override
     protected void doOKAction() {
-        onOK();
+        onOK(false);
         super.doOKAction();
     }
 
@@ -330,36 +335,41 @@ public class SelectSavePath extends DialogWrapper {
     /**
      * 确认按钮回调事件
      */
-    private void onOK() {
+    private void onOK(boolean onlySave) {
         List<Template> selectTemplateList = templateSelectComponent.getAllSelectedTemplate();
-        // 如果选择的模板是空的
-        if (selectTemplateList.isEmpty()) {
-            Messages.showWarningDialog("Can't Select Template!", GlobalDict.TITLE_INFO);
-            return;
-        }
-        GlobalConfigGroup selectedGroup = this.getSelectGroupConfig();
-        if (Objects.isNull(selectedGroup)) {
-            Messages.showWarningDialog("Can't Select Global Config!", GlobalDict.TITLE_INFO);
-            return;
-        }
-        String savePath = pathField.getText();
-        if (StringUtils.isEmpty(savePath)) {
-            Messages.showWarningDialog("Can't Select Save Path!", GlobalDict.TITLE_INFO);
-            return;
-        }
-        // 针对Linux系统路径做处理
-        savePath = savePath.replace("\\", "/");
-        // 保存路径使用相对路径
-        String basePath = project.getBasePath();
-        if (!StringUtils.isEmpty(basePath) && savePath.startsWith(basePath)) {
-            if (savePath.length() > basePath.length()) {
-                if ("/".equals(savePath.substring(basePath.length(), basePath.length() + 1))) {
+        String savePath = null;
+        GlobalConfigGroup selectedGroup = null;
+        if (!onlySave) {
+            // 如果选择的模板是空的
+            if (selectTemplateList.isEmpty() && !onlySave) {
+                Messages.showWarningDialog("Can't Select Template!", GlobalDict.TITLE_INFO);
+                return;
+            }
+            selectedGroup = this.getSelectGroupConfig();
+            if (Objects.isNull(selectedGroup) && !onlySave) {
+                Messages.showWarningDialog("Can't Select Global Config!", GlobalDict.TITLE_INFO);
+                return;
+            }
+            savePath = pathField.getText();
+            if (StringUtils.isEmpty(savePath) && !onlySave) {
+                Messages.showWarningDialog("Can't Select Save Path!", GlobalDict.TITLE_INFO);
+                return;
+            }
+            // 针对Linux系统路径做处理
+            savePath = savePath.replace("\\", "/");
+            // 保存路径使用相对路径
+            String basePath = project.getBasePath();
+            if (!StringUtils.isEmpty(basePath) && savePath.startsWith(basePath)) {
+                if (savePath.length() > basePath.length()) {
+                    if ("/".equals(savePath.substring(basePath.length(), basePath.length() + 1))) {
+                        savePath = savePath.replace(basePath, ".");
+                    }
+                } else {
                     savePath = savePath.replace(basePath, ".");
                 }
-            } else {
-                savePath = savePath.replace(basePath, ".");
             }
         }
+
         // 保存配置
         TableInfo tableInfo;
         if (!entityMode) {
@@ -382,7 +392,9 @@ public class SelectSavePath extends DialogWrapper {
         tableInfoService.saveTableInfo(tableInfo);
 
         // 生成代码
-        codeGenerateService.generate(selectTemplateList, getGenerateOptions(), selectedGroup);
+        if (!onlySave) {
+            codeGenerateService.generate(selectTemplateList, getGenerateOptions(), selectedGroup);
+        }
     }
 
     /**
