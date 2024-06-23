@@ -206,7 +206,7 @@ public class SelectSavePath extends DialogWrapper {
             close(CANCEL_EXIT_CODE);
         });
         resetButton.addActionListener(e -> {
-            DbTable dbTable = CacheDataUtils.getInstance().getSelectDbTable();
+            DbTable dbTable = cacheDataUtils.getSelectDbTable();
             if (dbTable == null) {
                 return;
             }

@@ -114,7 +114,7 @@ public class MainAction extends AnAction {
 
     public static class Dialog extends DialogWrapper {
 
-        private String typeName;
+        private final String typeName;
 
         private JPanel mainPanel;
 
