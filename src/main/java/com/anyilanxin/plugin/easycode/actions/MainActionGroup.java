@@ -74,10 +74,9 @@ public class MainActionGroup extends ActionGroup {
         }
         List<DbTable> dbTableList = new ArrayList<>();
         for (PsiElement element : psiElements) {
-            if (!(element instanceof DbTable)) {
+            if (!(element instanceof DbTable dbTable)) {
                 continue;
             }
-            DbTable dbTable = (DbTable) element;
             dbTableList.add(dbTable);
         }
         if (dbTableList.isEmpty()) {
@@ -97,8 +96,8 @@ public class MainActionGroup extends ActionGroup {
      * @return 子菜单数组
      */
     private AnAction[] getMenuList() {
-        String mainActionId = "com.sjhy.easy.code.action.generate";
-        String configActionId = "com.sjhy.easy.code.action.config";
+        String mainActionId = "com.anyilanxin.plugin.easycode.action.generate";
+        String configActionId = "com.anyilanxin.plugin.easycode.action.config";
         ActionManager actionManager = ActionManager.getInstance();
         // 代码生成菜单
         AnAction mainAction = actionManager.getAction(mainActionId);

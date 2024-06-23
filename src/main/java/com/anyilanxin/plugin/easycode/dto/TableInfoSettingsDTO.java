@@ -36,7 +36,7 @@ public class TableInfoSettingsDTO {
         DbElement element = dbTable;
         for (int i = 0; i < 3; i++) {
             String name = element.getName();
-            if (builder.length() > 0) {
+            if (!builder.isEmpty()) {
                 // 添加分割符
                 builder.insert(0, ".");
             }

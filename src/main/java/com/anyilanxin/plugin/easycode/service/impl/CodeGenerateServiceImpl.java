@@ -139,6 +139,7 @@ public class CodeGenerateServiceImpl implements CodeGenerateService {
                 String newName = tableInfo.getObj().getName().substring(tableInfo.getPreName().length());
                 tableInfo.setName(NameUtils.getInstance().getClassName(newName));
             }
+
             // 构建参数
             Map<String, Object> param = getDefaultParam();
             // 其他参数
