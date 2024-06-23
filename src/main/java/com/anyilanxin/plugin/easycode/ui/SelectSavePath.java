@@ -109,6 +109,10 @@ public class SelectSavePath extends DialogWrapper {
      */
     private final Map<String, String> haveNames;
     /**
+     * 包名与名称反向映射
+     */
+    private final Map<String, String> haveNameRevert;
+    /**
      * 数据缓存工具类
      */
     private final CacheDataUtils cacheDataUtils = CacheDataUtils.getInstance();
@@ -159,6 +163,7 @@ public class SelectSavePath extends DialogWrapper {
         this.entityMode = entityMode;
         this.project = project;
         this.haveNames = new HashMap<>(64);
+        this.haveNameRevert = new HashMap<>(64);
         this.tableInfoService = TableInfoSettingsService.getInstance();
         this.codeGenerateService = CodeGenerateService.getInstance(project);
         boolean gradle = ProjectUtils.isGradle(project);
@@ -260,7 +265,7 @@ public class SelectSavePath extends DialogWrapper {
 
         // 设置默认配置信息
         if (!StringUtils.isEmpty(tableInfo.getSaveModelName())) {
-            moduleComboBox.setSelectedItem(tableInfo.getSaveModelName());
+            moduleComboBox.setSelectedItem(haveNameRevert.get(tableInfo.getSaveModelName()));
         }
         if (!StringUtils.isEmpty(tableInfo.getSavePackageName())) {
             packageField.setText(tableInfo.getSavePackageName());
@@ -398,6 +403,7 @@ public class SelectSavePath extends DialogWrapper {
                 }
             }
             haveNames.put(name, module.getName());
+            haveNameRevert.put(module.getName(), name);
             moduleComboBox.addItem(name);
         }
         // 初始化全局配置
