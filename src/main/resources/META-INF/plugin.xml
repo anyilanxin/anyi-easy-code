@@ -32,6 +32,7 @@
         <li>3. 升级intellij相关插件以及处理一些过期代码</li>
         <li>4. 添加插件logo</li>
         <li>5. 处理gradle配置以及升级gradle</li>
+        <li>6. 优化gradle项目module选择框显示</li>
       </ul>
       <p>鸣谢 <a href="https://github.com/makejavas/EasyCode">makejava提供初始代码</a>.</p>
       <p>More <a href="https://github.com/anyilanxin/anyi-easy-code">Help Info</a>.</p>
