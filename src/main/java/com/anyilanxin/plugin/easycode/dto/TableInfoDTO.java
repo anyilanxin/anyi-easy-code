@@ -107,7 +107,7 @@ public class TableInfoDTO {
         // 列出旧的顺序，并删除已经不存在的列，不包括自定义列
         List<ColumnInfoDTO> oldSequenceColumn = oldData.getFullColumn().stream()
                 .filter(item -> allNewColumnNames.contains(item.getName()) || Boolean.TRUE.equals(item.getCustom()))
-                .collect(Collectors.toList());
+                .toList();
         // 尽可能的保留原始顺序(把自定义列按原始位置插入)
         Map<String, String> nameMap = new HashMap<>(oldSequenceColumn.size());
         for (int i = 0; i < oldSequenceColumn.size(); i++) {
