@@ -10,6 +10,7 @@ import com.intellij.openapi.vfs.VirtualFile;
 import com.intellij.openapi.wm.WindowManager;
 
 import java.awt.*;
+import java.io.File;
 
 /**
  * IDEA项目相关工具
@@ -87,5 +88,12 @@ public class ProjectUtils {
             throw new NullPointerException();
         }
         return LocalFileSystem.getInstance().findFileByPath(basePath);
+    }
+
+
+    public static boolean isGradle(Project project) {
+        String path = project.getBasePath() + "/.gradle";
+        File file = new File(path);
+        return file.exists() && file.isDirectory();
     }
 }

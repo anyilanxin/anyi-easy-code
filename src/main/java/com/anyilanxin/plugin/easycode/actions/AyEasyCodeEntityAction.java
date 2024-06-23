@@ -35,7 +35,6 @@ public class AyEasyCodeEntityAction extends AnAction {
         if (project == null) {
             return;
         }
-
         // 过滤选择Java文件
         VirtualFile[] psiFiles = event.getData(CommonDataKeys.VIRTUAL_FILE_ARRAY);
         if (psiFiles == null) {

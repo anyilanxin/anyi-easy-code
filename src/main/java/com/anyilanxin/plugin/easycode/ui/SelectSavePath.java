@@ -33,9 +33,8 @@ import java.awt.event.FocusEvent;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
+import java.util.*;
 
 /**
  * 选择保存路径
@@ -106,30 +105,34 @@ public class SelectSavePath extends DialogWrapper {
      */
     private JComboBox<String> selectGroupConfig;
     /**
+     * 所有包名称映射
+     */
+    private final Map<String, String> haveNames;
+    /**
      * 数据缓存工具类
      */
-    private CacheDataUtils cacheDataUtils = CacheDataUtils.getInstance();
+    private final CacheDataUtils cacheDataUtils = CacheDataUtils.getInstance();
     /**
      * 表信息服务
      */
-    private TableInfoSettingsService tableInfoService;
+    private final TableInfoSettingsService tableInfoService;
     /**
      * 项目对象
      */
-    private Project project;
+    private final Project project;
     /**
      * 代码生成服务
      */
-    private CodeGenerateService codeGenerateService;
+    private final CodeGenerateService codeGenerateService;
     /**
      * 当前项目中的module
      */
-    private List<Module> moduleList;
+    private final List<Module> moduleList;
 
     /**
      * 实体模式生成代码
      */
-    private boolean entityMode;
+    private final boolean entityMode;
 
     /**
      * 模板选择组件
@@ -155,19 +158,27 @@ public class SelectSavePath extends DialogWrapper {
         super(project);
         this.entityMode = entityMode;
         this.project = project;
+        this.haveNames = new HashMap<>(64);
         this.tableInfoService = TableInfoSettingsService.getInstance();
         this.codeGenerateService = CodeGenerateService.getInstance(project);
+        boolean gradle = ProjectUtils.isGradle(project);
         // 初始化module，存在资源路径的排前面
         this.moduleList = new LinkedList<>();
         for (Module module : ModuleManager.getInstance(project).getModules()) {
             // 存在源代码文件夹放前面，否则放后面
+            String name = module.getName();
+            // 针对gradle项目过滤掉test
+            if (gradle && (name.endsWith(".test") || name.endsWith(".main"))) {
+                continue;
+            }
             if (ModuleUtils.existsSourcePath(module)) {
                 this.moduleList.add(0, module);
             } else {
                 this.moduleList.add(module);
             }
         }
-        this.initPanel();
+        this.moduleList.sort(Comparator.comparing(Module::getName));
+        this.initPanel(gradle);
         this.refreshData();
         this.initEvent();
         init();
@@ -372,14 +383,22 @@ public class SelectSavePath extends DialogWrapper {
     /**
      * 初始化方法
      */
-    private void initPanel() {
+    private void initPanel(boolean gradle) {
         // 初始化模板组
         this.templateSelectComponent = new TemplateSelectComponent();
         templatePanel.add(this.templateSelectComponent.getMainPanel(), BorderLayout.CENTER);
-
         //初始化Module选择
         for (Module module : this.moduleList) {
-            moduleComboBox.addItem(module.getName());
+            String name = module.getName();
+            if (gradle) {
+                String[] split = name.split("\\.");
+                String shotName = split[split.length - 1];
+                if (!haveNames.containsKey(shotName)) {
+                    name = shotName;
+                }
+            }
+            haveNames.put(name, module.getName());
+            moduleComboBox.addItem(name);
         }
         // 初始化全局配置
         this.selectGroupConfig.removeAllItems();
@@ -387,6 +406,7 @@ public class SelectSavePath extends DialogWrapper {
             this.selectGroupConfig.addItem(groupName);
         }
     }
+
 
     /**
      * 获取生成选项
@@ -413,7 +433,8 @@ public class SelectSavePath extends DialogWrapper {
         if (StringUtils.isEmpty(name)) {
             return null;
         }
-        return ModuleManager.getInstance(project).findModuleByName(name);
+        String moduleName = haveNames.get(name);
+        return ModuleManager.getInstance(project).findModuleByName(moduleName);
     }
 
     /**
