@@ -15,6 +15,7 @@ import com.anyilanxin.plugin.easycode.tool.ModuleUtils;
 import com.anyilanxin.plugin.easycode.tool.ProjectUtils;
 import com.anyilanxin.plugin.easycode.tool.StringUtils;
 import com.anyilanxin.plugin.easycode.ui.component.TemplateSelectComponent;
+import com.intellij.database.psi.DbTable;
 import com.intellij.openapi.fileChooser.FileChooser;
 import com.intellij.openapi.fileChooser.FileChooserDescriptorFactory;
 import com.intellij.openapi.module.Module;
@@ -186,7 +187,7 @@ public class SelectSavePath extends DialogWrapper {
         }
         this.moduleList.sort(Comparator.comparing(Module::getName));
         this.initPanel(gradle);
-        this.refreshData();
+        this.refreshData(false);
         this.initEvent();
         init();
         setTitle(GlobalDict.TITLE_INFO);
@@ -203,6 +204,15 @@ public class SelectSavePath extends DialogWrapper {
         saveButton.addActionListener(e -> {
             onOK(true);
             close(CANCEL_EXIT_CODE);
+        });
+        resetButton.addActionListener(e -> {
+            DbTable dbTable = CacheDataUtils.getInstance().getSelectDbTable();
+            if (dbTable == null) {
+                return;
+            }
+            TableInfoSettingsService.getInstance().removeTableInfo(dbTable);
+            this.refreshData(true);
+            Messages.showInfoMessage(dbTable.getName() + "表配置信息已重置成功", GlobalDict.TITLE_INFO);
         });
         try {
             Class<?> cls = Class.forName("com.intellij.ide.util.PackageChooserDialog");
@@ -259,7 +269,7 @@ public class SelectSavePath extends DialogWrapper {
         });
     }
 
-    private void refreshData() {
+    private void refreshData(boolean onlyReset) {
         // 获取选中的表信息（鼠标右键的那张表），并提示未知类型
         TableInfo tableInfo;
         if (entityMode) {
@@ -341,17 +351,17 @@ public class SelectSavePath extends DialogWrapper {
         GlobalConfigGroup selectedGroup = null;
         if (!onlySave) {
             // 如果选择的模板是空的
-            if (selectTemplateList.isEmpty() && !onlySave) {
+            if (selectTemplateList.isEmpty()) {
                 Messages.showWarningDialog("Can't Select Template!", GlobalDict.TITLE_INFO);
                 return;
             }
             selectedGroup = this.getSelectGroupConfig();
-            if (Objects.isNull(selectedGroup) && !onlySave) {
+            if (Objects.isNull(selectedGroup)) {
                 Messages.showWarningDialog("Can't Select Global Config!", GlobalDict.TITLE_INFO);
                 return;
             }
             savePath = pathField.getText();
-            if (StringUtils.isEmpty(savePath) && !onlySave) {
+            if (StringUtils.isEmpty(savePath)) {
                 Messages.showWarningDialog("Can't Select Save Path!", GlobalDict.TITLE_INFO);
                 return;
             }
