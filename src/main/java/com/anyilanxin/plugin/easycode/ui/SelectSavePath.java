@@ -202,17 +202,29 @@ public class SelectSavePath extends DialogWrapper {
             refreshPath();
         });
         saveButton.addActionListener(e -> {
+            saveButton.setFocusable(true);
             onOK(true);
-            close(CANCEL_EXIT_CODE);
+            DbTable dbTable = cacheDataUtils.getSelectDbTable();
+            if (dbTable == null) {
+                return;
+            }
+
+
+            Messages.showInfoMessage(dbTable.getName() + "表配置信息已保存成功", GlobalDict.TITLE_INFO);
+            saveButton.setFocusable(false);
+//            close(CANCEL_EXIT_CODE);
         });
         resetButton.addActionListener(e -> {
+            resetButton.setFocusable(true);
             DbTable dbTable = cacheDataUtils.getSelectDbTable();
             if (dbTable == null) {
                 return;
             }
             TableInfoSettingsService.getInstance().removeTableInfo(dbTable);
             this.refreshData(true);
+            this.refreshPath();
             Messages.showInfoMessage(dbTable.getName() + "表配置信息已重置成功", GlobalDict.TITLE_INFO);
+            resetButton.setFocusable(false);
         });
         try {
             Class<?> cls = Class.forName("com.intellij.ide.util.PackageChooserDialog");
@@ -270,6 +282,7 @@ public class SelectSavePath extends DialogWrapper {
     }
 
     private void refreshData(boolean onlyReset) {
+        SettingsStorageDTO settings = SettingsStorageService.getSettingsStorage();
         // 获取选中的表信息（鼠标右键的那张表），并提示未知类型
         TableInfo tableInfo;
         if (entityMode) {
@@ -277,7 +290,6 @@ public class SelectSavePath extends DialogWrapper {
         } else {
             tableInfo = tableInfoService.getTableInfo(cacheDataUtils.getSelectDbTable());
         }
-
         // 设置默认配置信息
         if (!StringUtils.isEmpty(tableInfo.getSaveModelName())) {
             moduleComboBox.setSelectedItem(haveNameRevert.get(tableInfo.getSaveModelName()));
@@ -291,22 +303,14 @@ public class SelectSavePath extends DialogWrapper {
         if (!StringUtils.isEmpty(tableInfo.getVersion())) {
             versionField.setText(tableInfo.getVersion());
         }
-        SettingsStorageDTO settings = SettingsStorageService.getSettingsStorage();
-        String groupName = settings.getCurrTemplateGroupName();
-        if (!StringUtils.isEmpty(tableInfo.getTemplateGroupName())) {
-            if (settings.getTemplateGroupMap().containsKey(tableInfo.getTemplateGroupName())) {
-                groupName = tableInfo.getTemplateGroupName();
+        // 初始化作者
+        if (!StringUtils.isEmpty(tableInfo.getAuthor())) {
+            authorField.setText(tableInfo.getAuthor());
+        } else {
+            if (!StringUtils.isEmpty(settings.getAuthor())) {
+                authorField.setText(settings.getAuthor());
             }
         }
-        templateSelectComponent.setSelectedGroupName(groupName);
-
-        String groupConfig = settings.getCurrGlobalConfigGroupName();
-        if (!StringUtils.isEmpty(tableInfo.getGlobalConfigGroupName())) {
-            if (settings.getGlobalConfigGroupMap().containsKey(tableInfo.getGlobalConfigGroupName())) {
-                groupConfig = tableInfo.getGlobalConfigGroupName();
-            }
-        }
-        this.selectGroupConfig.setSelectedItem(groupConfig);
 
         String savePath = tableInfo.getSavePath();
         if (!StringUtils.isEmpty(savePath)) {
@@ -317,14 +321,37 @@ public class SelectSavePath extends DialogWrapper {
             }
             pathField.setText(savePath);
         }
-        // 初始化作者
-        if (!StringUtils.isEmpty(tableInfo.getAuthor())) {
-            authorField.setText(tableInfo.getAuthor());
-        } else {
-            if (!StringUtils.isEmpty(settings.getAuthor())) {
-                authorField.setText(settings.getAuthor());
+
+        if (onlyReset) {
+            versionField.setText(settings.getVersion());
+            authorField.setText(settings.getAuthor());
+            preField.setText("");
+            if (Objects.nonNull(moduleList) && !moduleList.isEmpty()) {
+                Module module = moduleList.get(0);
+                moduleComboBox.setSelectedItem(haveNameRevert.get(module.getName()));
+                VirtualFile path = ModuleUtils.getSourcePath(module);
+                pathField.setText(path.getPath());
+            } else {
+                pathField.setText("");
+                moduleComboBox.setSelectedItem("");
+            }
+            packageField.setText("");
+        }
+
+        String groupName = settings.getCurrTemplateGroupName();
+        if (!StringUtils.isEmpty(tableInfo.getTemplateGroupName())) {
+            if (settings.getTemplateGroupMap().containsKey(tableInfo.getTemplateGroupName())) {
+                groupName = tableInfo.getTemplateGroupName();
             }
         }
+        templateSelectComponent.setSelectedGroupName(groupName);
+        String groupConfig = settings.getCurrGlobalConfigGroupName();
+        if (!StringUtils.isEmpty(tableInfo.getGlobalConfigGroupName())) {
+            if (settings.getGlobalConfigGroupMap().containsKey(tableInfo.getGlobalConfigGroupName())) {
+                groupConfig = tableInfo.getGlobalConfigGroupName();
+            }
+        }
+        this.selectGroupConfig.setSelectedItem(groupConfig);
     }
 
     @Override
