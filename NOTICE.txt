@@ -4,4 +4,4 @@ Copyright 2024-present Anyilanxin XUANHONGZHOU
 
 This product includes software developed
 by The Apache Software Foundation (http://www.apache.org/)
-some files are The MIT License (https://opensource.org/licenses/MIT)(code author: makejava), see the file header for details
+some files are The MIT License (https://opensource.org/licenses/MIT)(code author: makejava-https://github.com/makejavas/EasyCode), see the file header for details
