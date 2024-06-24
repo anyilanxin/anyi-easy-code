@@ -41,6 +41,10 @@
 
 
     <change-notes><![CDATA[
+      <p>v1.0.1</p>
+      <ul>
+        <li>1. 更改开源协议为apache</li>
+      </ul>
       <p>v1.0.0</p>
       <ul>
         <li>1. 包名由com.sjhy.plugin改为com.anyilanxin.plugin</li>
