@@ -6,6 +6,8 @@ CHANGE LOG
 ### OTHER CHANGE
 
 1. 更改开源协议为apache
+2. 源码文件添加协议头信息
+3. 测试代码包路径由com.sjhy.plugin变更为com.anyilanxin.plugin
 
 ## 1.0.0
 
