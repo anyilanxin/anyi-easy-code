@@ -25,8 +25,7 @@
              Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
              Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
     <description><![CDATA[
-      <tag>AyEasyCode,Easy Code,easy,code,code generate,code tools</tag>
-      <h3>English:</h3>
+      The code generation plug-in based on IntelliJ IDEA
       <ul>
       <li>The code generation plug-in based on IntelliJ IDEA is developed to support custom templates (Java, HTML, JS, XML).</li>
       <li>As long as database related code can be generated through custom templates. Support database type and Java type mapping relationship configuration.</li>
