@@ -27,10 +27,8 @@ import lombok.Getter;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -116,6 +114,8 @@ public class TemplateSelectComponent {
         this.templatePanel.removeAll();
         this.checkBoxList = new ArrayList<>();
         TemplateGroup templateGroup = SettingsStorageService.getSettingsStorage().getTemplateGroupMap().get(groupName);
+        // 按名称排序
+        templateGroup.getElementList().sort(Comparator.comparing(Template::getName));
         for (Template template : templateGroup.getElementList()) {
             JBCheckBox checkBox = new JBCheckBox(template.getName());
             this.checkBoxList.add(checkBox);
