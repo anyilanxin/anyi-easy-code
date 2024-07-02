@@ -98,6 +98,11 @@ public class TableInfo {
      * 保存的包名称
      */
     private String savePackageName;
+
+    /**
+     * 保存的包相对路径，非斜杠开头
+     */
+    private String savePackageNamePath;
     /**
      * 保存路径
      */

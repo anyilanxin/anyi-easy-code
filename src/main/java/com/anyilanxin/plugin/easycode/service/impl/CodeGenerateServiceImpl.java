@@ -34,6 +34,7 @@ import com.intellij.openapi.ui.Messages;
 import com.intellij.psi.PsiClass;
 import com.intellij.util.ReflectionUtil;
 
+import java.io.File;
 import java.util.*;
 import java.util.stream.Collectors;
 
@@ -104,29 +105,27 @@ public class CodeGenerateServiceImpl implements CodeGenerateService {
         }
         // 将未配置的表进行配置覆盖
         TableInfo finalSelectedTableInfo = selectedTableInfo;
+        boolean unified = Boolean.TRUE.equals(generateOptions.getUnifiedConfig());
         tableInfoList.forEach(tableInfo -> {
-            if (StringUtils.isEmpty(tableInfo.getSavePath())) {
+            // 如果配置为空或者使用统一配置，直接全部覆盖
+            if (StringUtils.isEmpty(tableInfo.getSavePath()) || unified) {
                 tableInfo.setSaveModelName(finalSelectedTableInfo.getSaveModelName());
-                tableInfo.setSavePackageName(finalSelectedTableInfo.getSavePackageName());
+                String savePackageName = finalSelectedTableInfo.getSavePackageName();
+                tableInfo.setSavePackageName(savePackageName);
+                if (StringUtils.isEmpty(savePackageName)) {
+                    tableInfo.setSavePackageNamePath("");
+                } else {
+                    tableInfo.setSavePackageNamePath(savePackageName.replaceAll("\\.", File.separator));
+                }
                 tableInfo.setSavePath(finalSelectedTableInfo.getSavePath());
                 tableInfo.setPreName(finalSelectedTableInfo.getPreName());
                 tableInfo.setVersion(finalSelectedTableInfo.getVersion());
                 tableInfo.setAuthor(finalSelectedTableInfo.getAuthor());
+            }
+            if (StringUtils.isEmpty(tableInfo.getSavePath())) {
                 tableInfoService.saveTableInfo(tableInfo);
             }
         });
-        // 如果使用统一配置，直接全部覆盖
-        if (Boolean.TRUE.equals(generateOptions.getUnifiedConfig())) {
-            tableInfoList.forEach(tableInfo -> {
-                tableInfo.setSaveModelName(finalSelectedTableInfo.getSaveModelName());
-                tableInfo.setSavePackageName(finalSelectedTableInfo.getSavePackageName());
-                tableInfo.setSavePath(finalSelectedTableInfo.getSavePath());
-                tableInfo.setVersion(finalSelectedTableInfo.getVersion());
-                tableInfo.setAuthor(finalSelectedTableInfo.getAuthor());
-                tableInfo.setPreName(finalSelectedTableInfo.getPreName());
-            });
-        }
-
 
         // 生成代码
         generate(templates, tableInfoList, generateOptions, null, selectedGroup);

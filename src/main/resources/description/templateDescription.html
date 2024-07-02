@@ -22,6 +22,8 @@
         pkColumn 主键列 java.util.List&lt;ColumnInfo&gt;
         otherColumn 其他列 java.util.List&lt;ColumnInfo&gt;,除主键以外的列
         savePackageName 保存的包名 java.lang.String
+        savePackageNamePath 保存的包相对路径，非斜杠开头 java.lang.String
+    private String basePackagePath;
         savePath 保存路径 java.lang.String
         saveModelName 保存的model名称 java.lang.String
     columnInfo 列对象
