@@ -28,6 +28,7 @@ intellij {
     sandboxDir = "${rootProject.rootDir}/idea-sandbox"
     downloadSources = true
     updateSinceUntilBuild = false
+    instrumentCode = true
     plugins = ['com.intellij.java', 'com.intellij.database']
 }
 
