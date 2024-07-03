@@ -19,7 +19,7 @@
     <id>com.anyilanxin.plugin.easycode.easycode</id>
     !-- Public plugin name should be written in Title Case.
     Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
-    <name>AyEasyCode</name>
+    <name>@pluginName@</name>
     <vendor email="anyilanxin@aliyun.com" url="https://anyilanxin.com">AnYiLanXin</vendor>
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
              Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
@@ -93,13 +93,14 @@
         <projectService serviceInterface="com.anyilanxin.plugin.easycode.service.CodeGenerateService"
                         serviceImplementation="com.anyilanxin.plugin.easycode.service.impl.CodeGenerateServiceImpl"/>
         <!--系统设置面板-->
-        <applicationConfigurable dynamic="true" instance="com.anyilanxin.plugin.easycode.ui.MainSettingForm"/>
+        <applicationConfigurable dynamic="true" instance="com.anyilanxin.plugin.easycode.ui.MainSettingForm"
+                                 displayName="@pluginName@"/>
     </extensions>
 
     <actions>
         <!-- Add your actions here -->
         <group id="con.sjhy.easy.code.action" class="com.anyilanxin.plugin.easycode.actions.MainActionGroup"
-               text="AyEasyCode"
+               text="@pluginName@"
                popup="true">
             <!--生成代码菜单-->
             <add-to-group group-id="DatabaseViewPopupMenu" anchor="first"/>
