@@ -1,3 +1,5 @@
+import org.apache.tools.ant.filters.ReplaceTokens
+
 plugins {
     id 'idea'
     id 'java'
@@ -22,7 +24,7 @@ tasks.withType(JavaCompile).configureEach {
 
 // Read more: https://plugins.jetbrains.com/docs/intellij/tools-gradle-intellij-plugin.html
 intellij {
-    pluginName = 'AyEasyCode'
+    pluginName = "${pluginName}"
     version = "2024.1"
     type = 'IU'
     sandboxDir = "${rootProject.rootDir}/idea-sandbox"
@@ -44,6 +46,14 @@ dependencies {
     testImplementation 'junit:junit:4.13.2'
 }
 
+
+processResources {
+    filteringCharset = 'UTF-8'
+    include('**/*.*')
+    filesMatching('plugin.xml') {
+        filter(ReplaceTokens, tokens: ['version': version])
+    }
+}
 
 publishPlugin {
     token.set(System.getenv("PUBLISH_TOKEN"))

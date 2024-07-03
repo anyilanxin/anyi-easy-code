@@ -24,6 +24,7 @@
     <!-- Description of the plugin displayed on the Plugin Page and IDE Plugin Manager.
              Simple HTML elements (text formatting, paragraphs, and lists) can be added inside of <![CDATA[ ]]> tag.
              Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-description -->
+    <version>@version@</version>
     <description><![CDATA[
       <h3>The code generation tools plug-in.</h3>
       <h3>Features:</h3>
