@@ -35,6 +35,8 @@ import java.io.IOException;
  * @date 2021/08/14 15:16
  */
 public interface TableInfoSettingsService extends PersistentStateComponent<TableInfoSettingsDTO> {
+    String SAVE_PATH = "anyiEasyCodeTableSetting.xml";
+
     /**
      * 获取实例
      *
@@ -47,7 +49,7 @@ public interface TableInfoSettingsService extends PersistentStateComponent<Table
             // 出现配置文件被错误修改，或不兼容时直接删除配置文件。
             VirtualFile workspaceFile = ProjectUtils.getCurrProject().getWorkspaceFile();
             if (workspaceFile != null) {
-                VirtualFile configFile = workspaceFile.getParent().findChild("easyCodeTableSetting.xml");
+                VirtualFile configFile = workspaceFile.getParent().findChild(SAVE_PATH);
                 if (configFile != null && configFile.exists()) {
                     WriteCommandAction.runWriteCommandAction(ProjectUtils.getCurrProject(), () -> {
                         try {

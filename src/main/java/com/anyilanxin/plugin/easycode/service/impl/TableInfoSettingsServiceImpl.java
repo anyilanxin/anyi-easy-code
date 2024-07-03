@@ -28,12 +28,14 @@ import org.jetbrains.annotations.Nullable;
 
 import java.util.Objects;
 
+import static com.anyilanxin.plugin.easycode.service.TableInfoSettingsService.SAVE_PATH;
+
 /**
  * @author makejava
  * @version 1.0.0
  * @date 2021/08/14 15:20
  */
-@State(name = "AyEasyCodeTableSetting", storages = @Storage("easyCodeTableSetting.xml"))
+@State(name = "AyEasyCodeTableSetting", storages = @Storage(SAVE_PATH))
 public class TableInfoSettingsServiceImpl implements TableInfoSettingsService {
 
     private TableInfoSettingsDTO tableInfoSettings = new TableInfoSettingsDTO();
