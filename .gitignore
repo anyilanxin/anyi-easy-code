@@ -22,7 +22,7 @@ bootJar/
 .springBeans
 .sts4-cache
 documents/
-
+.intellijPlatform
 ### IntelliJ IDEA ###
 .idea/*
 !.idea/icon.png

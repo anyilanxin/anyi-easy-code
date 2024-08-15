@@ -43,6 +43,10 @@
 
 
     <change-notes><![CDATA[
+      <p>v1.1.1</p>
+      <ul>
+        <li>1. 升级jetBrains插件</li>
+      </ul>
       <p>v1.0.1</p>
       <ul>
         <li>1. 更改开源协议为apache</li>
