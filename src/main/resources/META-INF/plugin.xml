@@ -75,8 +75,6 @@
     <depends>com.intellij.modules.java</depends>
     <!--必须依赖Database Tool插件-->
     <depends>com.intellij.database</depends>
-    <depends optional="true" config-file="easycode-java.xml">com.intellij.modules.java</depends>
-
     <application-components>
         <!--<component>-->
         <!--<implementation-class>com.anyilanxin.plugin.easycode.tool.CloneUtils</implementation-class>-->
@@ -102,12 +100,19 @@
 
     <actions>
         <!-- Add your actions here -->
-        <group id="con.sjhy.easy.code.action" class="com.anyilanxin.plugin.easycode.actions.MainActionGroup"
+        <group id="com.anyilanxin.plugin.easycode.actions.MainActionGroup"
+               class="com.anyilanxin.plugin.easycode.actions.MainActionGroup"
                text="@pluginName@"
                popup="true">
             <!--生成代码菜单-->
             <add-to-group group-id="DatabaseViewPopupMenu" anchor="first"/>
         </group>
+
+        <action id="com.anyilanxin.plugin.easycode.actions.AyEasyCodeEntityAction"
+                class="com.anyilanxin.plugin.easycode.actions.AyEasyCodeEntityAction" text="@pluginName@...">
+            <add-to-group group-id="GenerateGroup" anchor="last"/>
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last"/>
+        </action>
     </actions>
 
 </idea-plugin>

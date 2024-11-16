@@ -48,15 +48,15 @@ public class MainActionGroup extends ActionGroup {
      */
     private boolean notExistsChildren;
 
-//    /**
-//     * 是否分组按钮
-//     *
-//     * @return 是否隐藏
-//     */
-//    @Override
-//    public boolean hideIfNoVisibleChildren() {
-//        return this.notExistsChildren;
-//    }
+    //    /**
+    //     * 是否分组按钮
+    //     *
+    //     * @return 是否隐藏
+    //     */
+    //    @Override
+    //    public boolean hideIfNoVisibleChildren() {
+    //        return this.notExistsChildren;
+    //    }
 
 
     /**
@@ -75,16 +75,22 @@ public class MainActionGroup extends ActionGroup {
         }
 
         //获取选中的PSI元素
-        PsiElement psiElement = event.getData(LangDataKeys.PSI_ELEMENT);
+        PsiElement[] psiElements = event.getData(LangDataKeys.PSI_ELEMENT_ARRAY);
+        if (psiElements == null || psiElements.length == 0) {
+            return getEmptyAnAction();
+        }
         DbTable selectDbTable = null;
-        if (psiElement instanceof DbTable) {
-            selectDbTable = (DbTable) psiElement;
+        for (PsiElement element : psiElements) {
+            if ((element instanceof DbTable dbTable)) {
+                selectDbTable = dbTable;
+                break;
+            }
         }
         if (selectDbTable == null) {
             return getEmptyAnAction();
         }
         //获取选中的所有表
-        PsiElement[] psiElements = event.getData(LangDataKeys.PSI_ELEMENT_ARRAY);
+        psiElements = event.getData(LangDataKeys.PSI_ELEMENT_ARRAY);
         if (psiElements == null || psiElements.length == 0) {
             return getEmptyAnAction();
         }
