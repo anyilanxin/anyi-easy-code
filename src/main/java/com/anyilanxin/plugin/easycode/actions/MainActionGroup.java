@@ -73,33 +73,16 @@ public class MainActionGroup extends ActionGroup {
         if (project == null) {
             return getEmptyAnAction();
         }
-
-        //获取选中的PSI元素
+        //获取选中的所有表
         PsiElement[] psiElements = event.getData(LangDataKeys.PSI_ELEMENT_ARRAY);
         if (psiElements == null || psiElements.length == 0) {
             return getEmptyAnAction();
         }
-        DbTable selectDbTable = null;
+        List<DbTable> dbTableList = new ArrayList<>(psiElements.length);
         for (PsiElement element : psiElements) {
-            if ((element instanceof DbTable dbTable)) {
-                selectDbTable = dbTable;
-                break;
+            if (element instanceof DbTable dbTable) {
+                dbTableList.add(dbTable);
             }
-        }
-        if (selectDbTable == null) {
-            return getEmptyAnAction();
-        }
-        //获取选中的所有表
-        psiElements = event.getData(LangDataKeys.PSI_ELEMENT_ARRAY);
-        if (psiElements == null || psiElements.length == 0) {
-            return getEmptyAnAction();
-        }
-        List<DbTable> dbTableList = new ArrayList<>();
-        for (PsiElement element : psiElements) {
-            if (!(element instanceof DbTable dbTable)) {
-                continue;
-            }
-            dbTableList.add(dbTable);
         }
         if (dbTableList.isEmpty()) {
             return getEmptyAnAction();
@@ -107,7 +90,7 @@ public class MainActionGroup extends ActionGroup {
 
         //保存数据到缓存
         cacheDataUtils.setDbTableList(dbTableList);
-        cacheDataUtils.setSelectDbTable(selectDbTable);
+        cacheDataUtils.setSelectDbTable(dbTableList.getFirst());
         this.notExistsChildren = false;
         return getMenuList();
     }
