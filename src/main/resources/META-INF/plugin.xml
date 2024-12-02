@@ -16,7 +16,7 @@
   -->
 <!-- Plugin Configuration File. Read more: https://plugins.jetbrains.com/docs/intellij/plugin-configuration-file.html -->
 <idea-plugin url="https://plugins.jetbrains.com/plugin/24686-ayeasycode" require-restart="true">
-    <id>com.anyilanxin.plugin.easycode.easycode</id>
+    <id>com.anyilanxin.plugin.easycode</id>
     !-- Public plugin name should be written in Title Case.
     Guidelines: https://plugins.jetbrains.com/docs/marketplace/plugin-overview-page.html#plugin-name -->
     <name>@pluginName@</name>
