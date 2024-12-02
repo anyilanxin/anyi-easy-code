@@ -43,6 +43,10 @@
 
 
     <change-notes><![CDATA[
+     <p>v1.1.2</p>
+      <ul>
+        <li>1. 处理新版 idea兼容问题</li>
+      </ul>
       <p>v1.1.1</p>
       <ul>
         <li>1. 升级jetBrains插件</li>
