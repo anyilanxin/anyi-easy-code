@@ -39,7 +39,7 @@ intellijPlatform {
 
 dependencies {
     intellijPlatform {
-        intellijIdeaUltimate("2025.1")
+        intellijIdeaUltimate("2025.2")
         pluginVerifier()
         instrumentationTools()
         javaCompiler()
