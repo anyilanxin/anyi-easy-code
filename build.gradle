@@ -7,7 +7,7 @@ plugins {
 }
 
 repositories {
-//    maven { url 'https://maven.aliyun.com/repository/central/' }
+    maven { url 'https://maven.aliyun.com/repository/central/' }
     mavenCentral()
     intellijPlatform {
         defaultRepositories()
@@ -40,6 +40,7 @@ intellijPlatform {
 dependencies {
     intellijPlatform {
         intellijIdeaUltimate("2025.2.1")
+        bundledPlugin("com.intellij.java")
         pluginVerifier()
         instrumentationTools()
         javaCompiler()
