@@ -3,11 +3,11 @@ import org.apache.tools.ant.filters.ReplaceTokens
 plugins {
     id 'idea'
     id 'java'
-    id 'org.jetbrains.intellij.platform' version '2.0.1'
+    id 'org.jetbrains.intellij.platform' version '2.9.0'
 }
 
 repositories {
-    maven { url 'https://maven.aliyun.com/repository/central/' }
+//    maven { url 'https://maven.aliyun.com/repository/central/' }
     mavenCentral()
     intellijPlatform {
         defaultRepositories()
@@ -39,7 +39,7 @@ intellijPlatform {
 
 dependencies {
     intellijPlatform {
-        intellijIdeaUltimate("2025.2")
+        intellijIdeaUltimate("2025.2.1")
         pluginVerifier()
         instrumentationTools()
         javaCompiler()
