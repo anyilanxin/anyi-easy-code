@@ -37,8 +37,7 @@ public class ReflectionUtils {
     public static Class<?> getGenericClass(Object obj, int index) {
         // 获取泛型接口
         Type type = obj.getClass().getGenericInterfaces()[0];
-        if (type instanceof ParameterizedType) {
-            ParameterizedType parameterizedType = (ParameterizedType) type;
+        if (type instanceof ParameterizedType parameterizedType) {
             Type targetType = parameterizedType.getActualTypeArguments()[index];
             return (Class<?>) targetType;
         } else {

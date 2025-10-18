@@ -55,14 +55,10 @@ public class CompareFileUtils {
             DiffContent rightContent = contentFactory.create(project, rightFile);
 
             DiffRequestChain chain = (DiffRequestChain) cls.getConstructor(DiffContent.class, DiffContent.class).newInstance(leftContent, rightContent);
-//            MutableDiffRequestChain chain = new MutableDiffRequestChain(leftContent, rightContent);
 
             cls.getMethod("setWindowTitle", String.class).invoke(chain, requestFactory.getTitle(leftFile, rightFile));
             cls.getMethod("setTitle1", String.class).invoke(chain, requestFactory.getContentTitle(leftFile));
             cls.getMethod("setTitle2", String.class).invoke(chain, requestFactory.getContentTitle(rightFile));
-//            chain.setWindowTitle(requestFactory.getTitle(leftFile, rightFile));
-//            chain.setTitle1(requestFactory.getContentTitle(leftFile));
-//            chain.setTitle2(requestFactory.getContentTitle(rightFile));
             DiffManager.getInstance().showDiff(project, chain, DiffDialogHints.MODAL);
         } catch (ClassNotFoundException e) {
             // 旧版兼容

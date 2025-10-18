@@ -50,8 +50,8 @@ import java.awt.event.FocusEvent;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
-import java.util.List;
 import java.util.*;
+import java.util.List;
 
 /**
  * 选择保存路径
@@ -218,7 +218,6 @@ public class SelectSavePath extends DialogWrapper {
             refreshPath();
         });
         saveButton.addActionListener(e -> {
-//            saveButton.setFocusable(true);
             onOK(true);
             DbTable dbTable = cacheDataUtils.getSelectDbTable();
             if (dbTable == null) {
@@ -227,11 +226,8 @@ public class SelectSavePath extends DialogWrapper {
 
 
             Messages.showInfoMessage(dbTable.getName() + "表配置信息已保存成功", GlobalDict.TITLE_INFO);
-//            saveButton.setFocusable(false);
-//            close(CANCEL_EXIT_CODE);
         });
         resetButton.addActionListener(e -> {
-//            resetButton.setFocusable(true);
             DbTable dbTable = cacheDataUtils.getSelectDbTable();
             if (dbTable == null) {
                 return;
@@ -240,7 +236,6 @@ public class SelectSavePath extends DialogWrapper {
             this.refreshData(true);
             this.refreshPath();
             Messages.showInfoMessage(dbTable.getName() + "表配置信息已重置成功", GlobalDict.TITLE_INFO);
-//            resetButton.setFocusable(false);
         });
         try {
             Class<?> cls = Class.forName("com.intellij.ide.util.PackageChooserDialog");
